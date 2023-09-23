@@ -8,15 +8,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+
 import javax.websocket.server.PathParam;
-
 @RestController
 @RequestMapping("/count")
 public class SymbolCountController {
@@ -36,22 +34,15 @@ public class SymbolCountController {
                     description = "Успешно"),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Параметры запроса имеют некорректный формат"
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Данные не найдены"
-            ),
+                    description = "Параметры запроса имеют некорректный формат"),
             @ApiResponse(
                     responseCode = "500",
                     description = "Произошла ошибка, не зависящая от вызывающей стороны"
             )
     })
     public ResponseEntity<String> count(@PathParam(value = "string") String string) {
-
         return ResponseEntity.ok().body(service.stringConverter(string));
     }
-
     @ExceptionHandler(WrongStringException.class)
     public ResponseEntity<ValidationError> handler (WrongStringException ex) {
         return ResponseEntity.badRequest().body(new ValidationError(ex.getMessage()));
