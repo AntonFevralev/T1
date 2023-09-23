@@ -26,7 +26,7 @@ public class SymbolCountController {
     }
 
     @GetMapping
-    @Tag(name = "Считает количество символов в строке")
+    @Tag(name = "Посчитать частоту вхождения символов в строке")
     @Operation(description = "Введите строку из латинских символов от 1-100 знаков")
     @ApiResponses(value = {
             @ApiResponse(
@@ -43,6 +43,12 @@ public class SymbolCountController {
     public ResponseEntity<String> count(@PathParam(value = "string") String string) {
         return ResponseEntity.ok().body(service.stringConverter(string));
     }
+
+    /**
+     * Отлавливает исключение-ошибку валидации
+     * @param ex
+     * @return сообщение об ошибке со статусом 400
+     */
     @ExceptionHandler(WrongStringException.class)
     public ResponseEntity<ValidationError> handler (WrongStringException ex) {
         return ResponseEntity.badRequest().body(new ValidationError(ex.getMessage()));

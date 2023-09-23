@@ -10,6 +10,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class SymbolCountService {
+
+    /**
+     * Конвертер строки в строку-отчет о частоте вхождения символов
+     * @param string исходная строка
+     * @return Строку-подсчет вхождение символов в исходной строке
+     */
     public String stringConverter(String string) {
         Validator.ValidateString(string);
         List<Character> characterList = new ArrayList<>();
