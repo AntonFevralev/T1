@@ -27,6 +27,5 @@ docker run -d -p 8080:8080 ghcr.io/antonfevralev/t1:release
 
 Приложение будет развернуто по ссылке
 
-```
-http://localhost:8080/swagger-ui/index.html
-```
+
+<a href>http://localhost:8080/swagger-ui/index.html</a>
